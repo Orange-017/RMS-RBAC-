@@ -33,12 +33,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.savevisitor = new System.Windows.Forms.Button();
-            this.cancelvisitor = new System.Windows.Forms.Button();
+            this.VisitorNametxt = new System.Windows.Forms.TextBox();
+            this.ContactNumtxt = new System.Windows.Forms.TextBox();
+            this.Purposetxt = new System.Windows.Forms.TextBox();
+            this.VisitorDTP = new System.Windows.Forms.DateTimePicker();
+            this.savevisitorbtn = new System.Windows.Forms.Button();
+            this.cancelvisitorbtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -89,69 +89,70 @@
             this.label6.Text = "Contact Number:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
-            // textBox1
+            // VisitorNametxt
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(96, 175);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(322, 38);
-            this.textBox1.TabIndex = 6;
+            this.VisitorNametxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisitorNametxt.Location = new System.Drawing.Point(96, 175);
+            this.VisitorNametxt.Multiline = true;
+            this.VisitorNametxt.Name = "VisitorNametxt";
+            this.VisitorNametxt.Size = new System.Drawing.Size(322, 38);
+            this.VisitorNametxt.TabIndex = 6;
             // 
-            // textBox2
+            // ContactNumtxt
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(492, 272);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(322, 38);
-            this.textBox2.TabIndex = 7;
+            this.ContactNumtxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ContactNumtxt.Location = new System.Drawing.Point(492, 272);
+            this.ContactNumtxt.Multiline = true;
+            this.ContactNumtxt.Name = "ContactNumtxt";
+            this.ContactNumtxt.Size = new System.Drawing.Size(322, 38);
+            this.ContactNumtxt.TabIndex = 7;
             // 
-            // textBox4
+            // Purposetxt
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(492, 175);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(322, 38);
-            this.textBox4.TabIndex = 9;
+            this.Purposetxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Purposetxt.Location = new System.Drawing.Point(492, 175);
+            this.Purposetxt.Multiline = true;
+            this.Purposetxt.Name = "Purposetxt";
+            this.Purposetxt.Size = new System.Drawing.Size(322, 38);
+            this.Purposetxt.TabIndex = 9;
             // 
-            // dateTimePicker1
+            // VisitorDTP
             // 
-            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(96, 272);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(322, 31);
-            this.dateTimePicker1.TabIndex = 10;
+            this.VisitorDTP.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisitorDTP.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisitorDTP.Location = new System.Drawing.Point(96, 272);
+            this.VisitorDTP.Name = "VisitorDTP";
+            this.VisitorDTP.Size = new System.Drawing.Size(322, 31);
+            this.VisitorDTP.TabIndex = 10;
             // 
-            // savevisitor
+            // savevisitorbtn
             // 
-            this.savevisitor.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.savevisitor.FlatAppearance.BorderSize = 0;
-            this.savevisitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.savevisitor.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Bold);
-            this.savevisitor.ForeColor = System.Drawing.Color.White;
-            this.savevisitor.Location = new System.Drawing.Point(492, 364);
-            this.savevisitor.Name = "savevisitor";
-            this.savevisitor.Size = new System.Drawing.Size(100, 42);
-            this.savevisitor.TabIndex = 11;
-            this.savevisitor.Text = "Save";
-            this.savevisitor.UseVisualStyleBackColor = false;
+            this.savevisitorbtn.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.savevisitorbtn.FlatAppearance.BorderSize = 0;
+            this.savevisitorbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.savevisitorbtn.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.savevisitorbtn.ForeColor = System.Drawing.Color.White;
+            this.savevisitorbtn.Location = new System.Drawing.Point(492, 364);
+            this.savevisitorbtn.Name = "savevisitorbtn";
+            this.savevisitorbtn.Size = new System.Drawing.Size(100, 42);
+            this.savevisitorbtn.TabIndex = 11;
+            this.savevisitorbtn.Text = "Save";
+            this.savevisitorbtn.UseVisualStyleBackColor = false;
+            this.savevisitorbtn.Click += new System.EventHandler(this.savevisitorbtn_Click);
             // 
-            // cancelvisitor
+            // cancelvisitorbtn
             // 
-            this.cancelvisitor.FlatAppearance.BorderColor = System.Drawing.SystemColors.InfoText;
-            this.cancelvisitor.FlatAppearance.BorderSize = 0;
-            this.cancelvisitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelvisitor.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelvisitor.ForeColor = System.Drawing.Color.Black;
-            this.cancelvisitor.Location = new System.Drawing.Point(318, 364);
-            this.cancelvisitor.Name = "cancelvisitor";
-            this.cancelvisitor.Size = new System.Drawing.Size(100, 42);
-            this.cancelvisitor.TabIndex = 12;
-            this.cancelvisitor.Text = "Cancel";
-            this.cancelvisitor.UseVisualStyleBackColor = true;
+            this.cancelvisitorbtn.FlatAppearance.BorderColor = System.Drawing.SystemColors.InfoText;
+            this.cancelvisitorbtn.FlatAppearance.BorderSize = 0;
+            this.cancelvisitorbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelvisitorbtn.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelvisitorbtn.ForeColor = System.Drawing.Color.Black;
+            this.cancelvisitorbtn.Location = new System.Drawing.Point(318, 364);
+            this.cancelvisitorbtn.Name = "cancelvisitorbtn";
+            this.cancelvisitorbtn.Size = new System.Drawing.Size(100, 42);
+            this.cancelvisitorbtn.TabIndex = 12;
+            this.cancelvisitorbtn.Text = "Cancel";
+            this.cancelvisitorbtn.UseVisualStyleBackColor = true;
             // 
             // addvisitor
             // 
@@ -160,12 +161,12 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(908, 481);
-            this.Controls.Add(this.cancelvisitor);
-            this.Controls.Add(this.savevisitor);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.cancelvisitorbtn);
+            this.Controls.Add(this.savevisitorbtn);
+            this.Controls.Add(this.VisitorDTP);
+            this.Controls.Add(this.Purposetxt);
+            this.Controls.Add(this.ContactNumtxt);
+            this.Controls.Add(this.VisitorNametxt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -184,11 +185,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button savevisitor;
-        private System.Windows.Forms.Button cancelvisitor;
+        private System.Windows.Forms.TextBox VisitorNametxt;
+        private System.Windows.Forms.TextBox ContactNumtxt;
+        private System.Windows.Forms.TextBox Purposetxt;
+        private System.Windows.Forms.DateTimePicker VisitorDTP;
+        private System.Windows.Forms.Button savevisitorbtn;
+        private System.Windows.Forms.Button cancelvisitorbtn;
     }
 }

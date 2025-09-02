@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(visitorlog));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.searchbtn = new FontAwesome.Sharp.IconButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.VisitorLogDGV = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.addvisitor = new FontAwesome.Sharp.IconButton();
-            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisitorLogDGV)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,12 +51,26 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.searchbtn);
             this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Controls.Add(this.VisitorLogDGV);
             this.panel1.Location = new System.Drawing.Point(53, 151);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1060, 565);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button3.Location = new System.Drawing.Point(186, 20);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(154, 41);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Refresh";
+            this.button3.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
@@ -71,6 +85,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Update Out Time";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // searchbtn
             // 
@@ -95,16 +110,16 @@
             this.textBox1.Size = new System.Drawing.Size(353, 38);
             this.textBox1.TabIndex = 1;
             // 
-            // dataGridView1
+            // VisitorLogDGV
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 73);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1013, 473);
-            this.dataGridView1.TabIndex = 0;
+            this.VisitorLogDGV.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.VisitorLogDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.VisitorLogDGV.Location = new System.Drawing.Point(42, 87);
+            this.VisitorLogDGV.Name = "VisitorLogDGV";
+            this.VisitorLogDGV.RowHeadersWidth = 51;
+            this.VisitorLogDGV.RowTemplate.Height = 24;
+            this.VisitorLogDGV.Size = new System.Drawing.Size(1013, 473);
+            this.VisitorLogDGV.TabIndex = 0;
             // 
             // panel2
             // 
@@ -146,20 +161,7 @@
             this.addvisitor.Text = "Add Visitor";
             this.addvisitor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.addvisitor.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button3.Location = new System.Drawing.Point(186, 20);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(154, 41);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Refresh";
-            this.button3.UseVisualStyleBackColor = false;
+            this.addvisitor.Click += new System.EventHandler(this.addvisitor_Click);
             // 
             // visitorlog
             // 
@@ -172,7 +174,7 @@
             this.Load += new System.EventHandler(this.visitorlog_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisitorLogDGV)).EndInit();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -183,7 +185,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private FontAwesome.Sharp.IconButton addvisitor;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView VisitorLogDGV;
         private System.Windows.Forms.TextBox textBox1;
         private FontAwesome.Sharp.IconButton searchbtn;
         private System.Windows.Forms.Panel panel3;
