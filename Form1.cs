@@ -210,7 +210,7 @@ namespace RECOMANAGESYS
 
         private void lbForgotPass_Click(object sender, EventArgs e)
         {
-            forgotpass forgotpass = new forgotpass();
+            forgotpassfrm forgotpass = new forgotpassfrm();
             forgotpass.Show();
         }
     }

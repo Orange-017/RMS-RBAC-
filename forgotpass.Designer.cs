@@ -1,6 +1,6 @@
 ﻿namespace RECOMANAGESYS
 {
-    partial class forgotpass
+    partial class forgotpassfrm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(forgotpass));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(forgotpassfrm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -115,6 +115,7 @@
             this.save.TabIndex = 7;
             this.save.Text = "Save";
             this.save.UseVisualStyleBackColor = false;
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // cancel
             // 
@@ -129,7 +130,7 @@
             this.cancel.Text = "Cancel";
             this.cancel.UseVisualStyleBackColor = true;
             // 
-            // forgotpass
+            // forgotpassfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -144,10 +145,12 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "forgotpass";
+            this.Name = "forgotpassfrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "forgotpass";
+            this.Load += new System.EventHandler(this.forgotpassfrm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
