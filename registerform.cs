@@ -514,14 +514,12 @@ WHERE u.IsActive = 1;
 
 
 CREATE TABLE TBL_Profiles (
-    ProfileID INT PRIMARY KEY IDENTITY(1,1),
-    UserID INT NULL, -- Optional link to Users table if you want connected accounts
+    ProfileID INT PRIMARY KEY IDENTITY(1,1),   
     FullName NVARCHAR(255) NOT NULL,
     CompleteAddress NVARCHAR(500),
     ContactNumber NVARCHAR(20),
     MemberSince DATE NOT NULL,
-    PositionInHOA NVARCHAR(100) NOT NULL,
-    CONSTRAINT FK_Profiles_Users FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    PositionInHOA NVARCHAR(100) NOT NULL,   
 	);
 
 
