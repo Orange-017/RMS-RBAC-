@@ -459,6 +459,7 @@ CREATE TABLE Announcements (
 
 
 // for profile , dashboard pics, visitorlog, 
+
 /*
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AND name = 'MemberSince')
     ALTER TABLE Users ADD MemberSince DATE NULL;
@@ -478,13 +479,6 @@ IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AN
 INSERT INTO Users (Username, PasswordHash, Firstname, Lastname, MiddleName, RoleId, CompleteAddress, ContactNumber, EmailAddress, MemberSince, AdminAuthorizedID, IsActive)
 VALUES 
 ('Admin0', 'hashed_password_here', 'Daniela', 'henry', 'Martillan', 1, '123 Admin St', '09654856231', 'admin@hoa.com', '2024-01-01', 'ADM001', 1);
-
-
-
-
-
-
-
 
 
 
@@ -510,9 +504,6 @@ INNER JOIN TBL_Roles r ON u.RoleId = r.RoleId
 WHERE u.IsActive = 1;
 
 
-
-
-
 CREATE TABLE TBL_Profiles (
     ProfileID INT PRIMARY KEY IDENTITY(1,1),   
     FullName NVARCHAR(255) NOT NULL,
@@ -521,11 +512,6 @@ CREATE TABLE TBL_Profiles (
     MemberSince DATE NOT NULL,
     PositionInHOA NVARCHAR(100) NOT NULL,   
 	);
-
-
-
-
-
 
 CREATE TABLE TBL_VisitorsLog (
 VisitorID INT PRIMARY KEY IDENTITY(1,1),
