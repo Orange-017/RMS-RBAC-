@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -454,4 +455,87 @@ CREATE TABLE Announcements (
     Message NVARCHAR(MAX) NOT NULL,      -- Body text
     DatePosted DATETIME DEFAULT GETDATE() -- Auto date when posted
 );
+*/
+
+
+// for profile , dashboard pics, visitorlog, 
+/*
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AND name = 'MemberSince')
+    ALTER TABLE Users ADD MemberSince DATE NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AND name = 'AdminAuthorizedID')
+    ALTER TABLE Users ADD AdminAuthorizedID NVARCHAR(50) NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AND name = 'ProfilePicture')
+    ALTER TABLE Users ADD ProfilePicture VARBINARY(MAX) NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AND name = 'CreatedDate')
+    ALTER TABLE Users ADD CreatedDate DATETIME DEFAULT GETDATE();
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Users') AND name = 'IsActive')
+    ALTER TABLE Users ADD IsActive BIT DEFAULT 1;
+
+INSERT INTO Users (Username, PasswordHash, Firstname, Lastname, MiddleName, RoleId, CompleteAddress, ContactNumber, EmailAddress, MemberSince, AdminAuthorizedID, IsActive)
+VALUES 
+('Admin0', 'hashed_password_here', 'Daniela', 'henry', 'Martillan', 1, '123 Admin St', '09654856231', 'admin@hoa.com', '2024-01-01', 'ADM001', 1);
+
+
+
+
+
+
+
+
+
+
+CREATE VIEW VW_UserProfiles AS
+SELECT 
+    u.UserID,
+    u.Username,
+    CONCAT(u.Firstname, ' ', ISNULL(u.MiddleName + ' ', ''), u.Lastname) AS FullName,
+    u.Firstname,
+    u.Lastname,
+    u.MiddleName,
+    r.RoleName AS Position,
+    u.CompleteAddress,
+    u.ContactNumber,
+    u.EmailAddress,
+    u.MemberSince,
+    u.AdminAuthorizedID,
+    u.ProfilePicture,
+    u.IsActive,
+    u.CreatedDate
+FROM Users u
+INNER JOIN TBL_Roles r ON u.RoleId = r.RoleId
+WHERE u.IsActive = 1;
+
+
+
+
+
+CREATE TABLE TBL_Profiles (
+    ProfileID INT PRIMARY KEY IDENTITY(1,1),
+    UserID INT NULL, -- Optional link to Users table if you want connected accounts
+    FullName NVARCHAR(255) NOT NULL,
+    CompleteAddress NVARCHAR(500),
+    ContactNumber NVARCHAR(20),
+    MemberSince DATE NOT NULL,
+    PositionInHOA NVARCHAR(100) NOT NULL,
+    CONSTRAINT FK_Profiles_Users FOREIGN KEY (UserID) REFERENCES Users(UserID)
+	);
+
+
+
+
+
+
+CREATE TABLE TBL_VisitorsLog (
+VisitorID INT PRIMARY KEY IDENTITY(1,1),
+VisitorName VARCHAR(100) NOT NULL,
+ContactNumber VARCHAR(20),
+Date DATETIME NOT NULL DEFAULT GETDATE(),
+VisitPurpose VARCHAR(200),
+TimeIn DATETIME NOT NULL,
+TimeOut DATETIME NULL,
+)
 */
