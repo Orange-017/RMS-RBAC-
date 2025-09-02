@@ -22,8 +22,8 @@ namespace RECOMANAGESYS
             InitializeComponent();
             DTPProfile.Value = DateTime.Now;
             cmbPosition.Items.AddRange(new string[] {
-                "Homeowner", "Board Member", "Treasurer",
-                "Secretary", "President", "Vice President"
+                "Auditor", "PRO & Custodian Committee", "Treasurer","Peace & Order","Health & Sanitation",
+                "Grievance Committee","Grievance Chairman","Kabataan Youth Concern","Secretary", "President", "Vice President"
             });
             cmbPosition.SelectedIndex = 0;
         }
