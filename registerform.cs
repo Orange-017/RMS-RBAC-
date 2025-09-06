@@ -485,39 +485,6 @@ INSERT INTO Users (Username, PasswordHash, Firstname, Lastname, MiddleName, Role
 VALUES 
 ('Admin0', 'hashed_password_here', 'Daniela', 'henry', 'Martillan', 1, '123 Admin St', '09654856231', 'admin@hoa.com', '2024-01-01', 'ADM001', 1);
 
-
-
-CREATE VIEW VW_UserProfiles AS
-SELECT 
-    u.UserID,
-    u.Username,
-    CONCAT(u.Firstname, ' ', ISNULL(u.MiddleName + ' ', ''), u.Lastname) AS FullName,
-    u.Firstname,
-    u.Lastname,
-    u.MiddleName,
-    r.RoleName AS Position,
-    u.CompleteAddress,
-    u.ContactNumber,
-    u.EmailAddress,
-    u.MemberSince,
-    u.AdminAuthorizedID,
-    u.ProfilePicture,
-    u.IsActive,
-    u.CreatedDate
-FROM Users u
-INNER JOIN TBL_Roles r ON u.RoleId = r.RoleId
-WHERE u.IsActive = 1;
-
-
-CREATE TABLE TBL_Profiles (
-    ProfileID INT PRIMARY KEY IDENTITY(1,1),   
-    FullName NVARCHAR(255) NOT NULL,
-    CompleteAddress NVARCHAR(500),
-    ContactNumber NVARCHAR(20),
-    MemberSince DATE NOT NULL,
-    PositionInHOA NVARCHAR(100) NOT NULL,   
-	);
-
 CREATE TABLE TBL_VisitorsLog (
 VisitorID INT PRIMARY KEY IDENTITY(1,1),
 VisitorName VARCHAR(100) NOT NULL,
@@ -527,4 +494,43 @@ VisitPurpose VARCHAR(200),
 TimeIn DATETIME NOT NULL,
 TimeOut DATETIME NULL,
 )
+*/
+/*
+
+// NEW 
+
+ CREATE TABLE Residents (
+    HomeownerID INT PRIMARY KEY,
+    FirstName NVARCHAR(50),
+    MiddleName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    HomeAddress NVARCHAR(255),
+    ContactNumber NVARCHAR(15),
+    EmailAddress NVARCHAR(100),
+    EmergencyContactPerson NVARCHAR(100),
+    EmergencyContactNumber NVARCHAR(15),
+    ResidencyType NVARCHAR(50),
+    IsActive BIT DEFAULT 1
+);
+
+CREATE TABLE TBL_Units (
+    UnitID INT IDENTITY(1,1) PRIMARY KEY,
+    UnitNumber NVARCHAR(20),
+    UnitType NVARCHAR(50),
+    Block NVARCHAR(10),
+    Lot NVARCHAR(10)
+);
+
+-- HomeownerUnits junction table to link residents, units, and users
+CREATE TABLE HomeownerUnits (
+    HomeownerID INT NOT NULL,
+    UnitID INT NOT NULL,
+    DateOfOwnership DATETIME,
+    ApprovedByUserID INT NULL,
+    PRIMARY KEY (HomeownerID, UnitID),
+    FOREIGN KEY (HomeownerID) REFERENCES Residents(HomeownerID),
+    FOREIGN KEY (UnitID) REFERENCES TBL_Units(UnitID),
+    FOREIGN KEY (ApprovedByUserID) REFERENCES Users(UserID)
+);
+
 */
