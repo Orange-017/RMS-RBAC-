@@ -168,7 +168,7 @@ namespace RECOMANAGESYS
                     return count > 0;
                 }
             }
-        }
+        }           
 
         private void RegisterNewUser()
         {
@@ -318,6 +318,11 @@ namespace RECOMANAGESYS
 
         private void label5_Click(object sender, EventArgs e) { }
         private void DTPProfile_ValueChanged(object sender, EventArgs e) { }
+
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 /*

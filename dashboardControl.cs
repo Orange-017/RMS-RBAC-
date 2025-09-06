@@ -16,5 +16,10 @@ namespace RECOMANAGESYS
         {
             InitializeComponent();
         }
+
+        private void dashboardControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

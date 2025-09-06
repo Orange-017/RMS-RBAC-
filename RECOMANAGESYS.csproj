@@ -99,6 +99,7 @@
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -136,6 +137,12 @@
     </Compile>
     <Compile Include="AddProfile.Designer.cs">
       <DependentUpon>AddProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddUnits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddUnits.Designer.cs">
+      <DependentUpon>AddUnits.cs</DependentUpon>
     </Compile>
     <Compile Include="addvisitor.cs">
       <SubType>Form</SubType>
@@ -180,23 +187,29 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Homeownersfrm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Homeownersfrm.Designer.cs">
+      <DependentUpon>Homeownersfrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="monthdues.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="monthdues.Designer.cs">
       <DependentUpon>monthdues.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfficerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfficerInfo.Designer.cs">
+      <DependentUpon>OfficerInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="PostAnnouncement.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PostAnnouncement.Designer.cs">
       <DependentUpon>PostAnnouncement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Profile.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Profile.Designer.cs">
-      <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +243,9 @@
     <EmbeddedResource Include="AddProfile.resx">
       <DependentUpon>AddProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddUnits.resx">
+      <DependentUpon>AddUnits.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="addvisitor.resx">
       <DependentUpon>addvisitor.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,14 +267,17 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Homeownersfrm.resx">
+      <DependentUpon>Homeownersfrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="monthdues.resx">
       <DependentUpon>monthdues.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OfficerInfo.resx">
+      <DependentUpon>OfficerInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PostAnnouncement.resx">
       <DependentUpon>PostAnnouncement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Profile.resx">
-      <DependentUpon>Profile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -21,7 +21,7 @@ namespace RECOMANAGESYS
         private scheduling sched;
         private visitorlog log;
         private docurepo repo;
-        private Profilefrm prof;
+       private Homeowners homeowners;
 
 
         public dashboard()
@@ -80,8 +80,10 @@ namespace RECOMANAGESYS
             repo = new docurepo();
             flowLayoutPanel1.Controls.Add(repo);
 
-            prof = new Profilefrm();
-            flowLayoutPanel1.Controls.Add(prof);
+          
+           homeowners = new Homeowners();
+            flowLayoutPanel1.Controls.Add(homeowners);
+           
 
             EnforcePermissions();
 
@@ -95,7 +97,7 @@ namespace RECOMANAGESYS
             btnMonthlydues.Visible = loginform.CurrentUser.HasPermission("CanAccessMonthlyDues");
             // btnEditDues.Visible = loginform.CurrentUser.HasPermission("CanEditMonthlyDues");
             btnProfile.Visible = loginform.CurrentUser.HasPermission("CanAccessProfiles");
-
+            
             btnScheduling.Visible = loginform.CurrentUser.HasPermission("CanAccessScheduling");
             btnVisitorlog.Visible = loginform.CurrentUser.HasPermission("CanAccessVisitorLog");
 
@@ -125,8 +127,7 @@ namespace RECOMANAGESYS
                         }
                         else
                         {
-                            // Optional: set default picture if no uploaded image
-                          //  ProfilePicDB.Image = Properties.Resources.default;
+                            
                         }
                     }
                 }
@@ -181,7 +182,7 @@ namespace RECOMANAGESYS
 
         private void btnProfile_Click(object sender, EventArgs e)
         {
-            ShowControl(prof);
+           ShowControl(homeowners);
         }
 
         private void ProfilePicDB_Click(object sender, EventArgs e)
@@ -189,5 +190,9 @@ namespace RECOMANAGESYS
 
         }
 
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

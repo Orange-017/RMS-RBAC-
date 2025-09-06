@@ -45,12 +45,12 @@
             // 
             this.HomeOwnersShow.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.HomeOwnersShow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HomeOwnersShow.Location = new System.Drawing.Point(16, 57);
-            this.HomeOwnersShow.Margin = new System.Windows.Forms.Padding(2);
+            this.HomeOwnersShow.Location = new System.Drawing.Point(21, 70);
+            this.HomeOwnersShow.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.HomeOwnersShow.Name = "HomeOwnersShow";
             this.HomeOwnersShow.RowHeadersWidth = 51;
             this.HomeOwnersShow.RowTemplate.Height = 24;
-            this.HomeOwnersShow.Size = new System.Drawing.Size(760, 392);
+            this.HomeOwnersShow.Size = new System.Drawing.Size(1013, 482);
             this.HomeOwnersShow.TabIndex = 0;
             // 
             // panel1
@@ -62,10 +62,10 @@
             this.panel1.Controls.Add(this.searchbtn);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.HomeOwnersShow);
-            this.panel1.Location = new System.Drawing.Point(38, 111);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(27, 137);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(796, 468);
+            this.panel1.Size = new System.Drawing.Size(1061, 576);
             this.panel1.TabIndex = 1;
             // 
             // updateHomeOwners
@@ -75,10 +75,10 @@
             this.updateHomeOwners.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateHomeOwners.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateHomeOwners.ForeColor = System.Drawing.Color.White;
-            this.updateHomeOwners.Location = new System.Drawing.Point(16, 13);
-            this.updateHomeOwners.Margin = new System.Windows.Forms.Padding(2);
+            this.updateHomeOwners.Location = new System.Drawing.Point(21, 16);
+            this.updateHomeOwners.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.updateHomeOwners.Name = "updateHomeOwners";
-            this.updateHomeOwners.Size = new System.Drawing.Size(116, 33);
+            this.updateHomeOwners.Size = new System.Drawing.Size(155, 41);
             this.updateHomeOwners.TabIndex = 5;
             this.updateHomeOwners.Text = "Update ";
             this.updateHomeOwners.UseVisualStyleBackColor = false;
@@ -91,10 +91,10 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(136, 13);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Location = new System.Drawing.Point(181, 16);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 33);
+            this.button1.Size = new System.Drawing.Size(155, 41);
             this.button1.TabIndex = 4;
             this.button1.Text = "Generate Report";
             this.button1.UseVisualStyleBackColor = false;
@@ -106,21 +106,21 @@
             this.searchbtn.IconColor = System.Drawing.Color.Black;
             this.searchbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.searchbtn.IconSize = 28;
-            this.searchbtn.Location = new System.Drawing.Point(739, 15);
-            this.searchbtn.Margin = new System.Windows.Forms.Padding(2);
+            this.searchbtn.Location = new System.Drawing.Point(985, 18);
+            this.searchbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.searchbtn.Name = "searchbtn";
-            this.searchbtn.Size = new System.Drawing.Size(38, 31);
+            this.searchbtn.Size = new System.Drawing.Size(51, 38);
             this.searchbtn.TabIndex = 3;
             this.searchbtn.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(512, 15);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Location = new System.Drawing.Point(683, 18);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(265, 31);
+            this.textBox1.Size = new System.Drawing.Size(353, 38);
             this.textBox1.TabIndex = 2;
             // 
             // addHomeowners
@@ -134,10 +134,10 @@
             this.addHomeowners.IconColor = System.Drawing.Color.White;
             this.addHomeowners.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.addHomeowners.IconSize = 25;
-            this.addHomeowners.Location = new System.Drawing.Point(622, 20);
-            this.addHomeowners.Margin = new System.Windows.Forms.Padding(2);
+            this.addHomeowners.Location = new System.Drawing.Point(857, 24);
+            this.addHomeowners.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addHomeowners.Name = "addHomeowners";
-            this.addHomeowners.Size = new System.Drawing.Size(155, 33);
+            this.addHomeowners.Size = new System.Drawing.Size(179, 41);
             this.addHomeowners.TabIndex = 5;
             this.addHomeowners.Text = "Add Homeowner";
             this.addHomeowners.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -149,21 +149,23 @@
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.addHomeowners);
-            this.panel2.Location = new System.Drawing.Point(38, 19);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
+            this.panel2.Location = new System.Drawing.Point(27, 23);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(796, 74);
+            this.panel2.Size = new System.Drawing.Size(1061, 91);
             this.panel2.TabIndex = 2;
             // 
             // monthdues
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DarkGray;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "monthdues";
-            this.Size = new System.Drawing.Size(873, 599);
+            this.Size = new System.Drawing.Size(1110, 736);
+            this.Load += new System.EventHandler(this.monthdues_Load);
             ((System.ComponentModel.ISupportInitialize)(this.HomeOwnersShow)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

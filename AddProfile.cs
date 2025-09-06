@@ -1,157 +1,260 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿// My add residency form 
+using System;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace RECOMANAGESYS
 {
-    public partial class AddProfile : Form
+    public partial class ResidencyRegisterfrm : Form
     {
-        public event EventHandler ProfileAdded;
+        private const int ContactNumberLength = 11;
+        private static string connectionString =
+            "Data Source=LAPTOP-FT905FTC\\SQLEXPRESS;Initial Catalog=RecordManagement;Integrated Security=True;";
 
+        private int? homeownerId = null; 
 
-        public AddProfile()
+        public ResidencyRegisterfrm()
         {
             InitializeComponent();
-            DTPProfile.Value = DateTime.Now;
-            cmbPosition.Items.AddRange(new string[] {
-                "Auditor", "PRO & Custodian Committee", "Treasurer","Peace & Order","Health & Sanitation",
-                "Grievance Committee","Grievance Chairman","Kabataan Youth Concern","Secretary", "President", "Vice President"
-            });
-            cmbPosition.SelectedIndex = 0;
+            if (ResidentIDtxt != null && residentlbl != null)
+            {
+                ResidentIDtxt.Visible = true;
+                residentlbl.Visible = true;
+                ResidentIDtxt.ReadOnly = false; 
+            }
+
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        { }
+        public ResidencyRegisterfrm(int editHomeownerId)
+        {
+            InitializeComponent();
+            homeownerId = editHomeownerId;
+            this.Text = "Edit Homeowner";
+            LoadHomeownerData();
+
+            if (ResidentIDtxt != null && residentlbl != null)
+            {
+                ResidentIDtxt.Visible = true;
+                residentlbl.Visible = true;
+                ResidentIDtxt.ReadOnly = true; 
+            }
+        }
 
         private void AddProfile_Load(object sender, EventArgs e)
-        { }
+        {                      
+            cmbType.Items.Clear();
+            cmbType.Items.AddRange(new string[] { "Owner", "Tenant", "Caretaker" });
+            cmbType.SelectedIndex = 0;
+        }
 
-        private void ProfilePic_Click(object sender, EventArgs e)
-        {}
-
-        private void button2_Click(object sender, EventArgs e)
-        { }
-        private void savevisitor_Click(object sender, EventArgs e)
-        {}
-
-        private void button1_Click(object sender, EventArgs e)
+        private void LoadHomeownerData()
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Please enter Full Name.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            if (!homeownerId.HasValue) return;
 
-            if (cmbPosition.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a Position.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-      
-            SaveProfile(txtName.Text, txtAddress.Text, txtContact.Text,
-                      DTPProfile.Value, cmbPosition.SelectedItem.ToString());       
-    }
-        private void SaveProfile(string fullName, string address, string contact, DateTime memberSince, string position)
-        {
             try
             {
-                using (SqlConnection conn = DatabaseHelper.GetConnection())
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+                    string query = "SELECT * FROM Residents WHERE HomeownerID = @id AND IsActive = 1";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", homeownerId.Value);
 
-                    string checkQuery = "SELECT COUNT(*) FROM TBL_Profiles WHERE FullName = @fullName AND ContactNumber = @contact";
-                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
                     {
-                        checkCmd.Parameters.AddWithValue("@fullName", fullName.Trim());
-                        checkCmd.Parameters.AddWithValue("@contact", string.IsNullOrWhiteSpace(contact) ? (object)DBNull.Value : contact.Trim());
+                        ResidentIDtxt.Text = reader["HomeownerID"].ToString(); 
+                        FirstNametxt.Text = reader["FirstName"].ToString();
+                        MiddleNametxt.Text = reader["MiddleName"].ToString();
+                        lastNametxt.Text = reader["LastName"].ToString();
+                        addresstxt.Text = reader["HomeAddress"].ToString();
+                        contactnumtxt.Text = reader["ContactNumber"].ToString();
+                        Emailtxt.Text = reader["EmailAddress"].ToString();
+                        emergencyPersontxt.Text = reader["EmergencyContactPerson"].ToString();
+                        emergencyNumtxt.Text = reader["EmergencyContactNumber"].ToString();
+                        cmbType.Text = reader["ResidencyType"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading homeowner data: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                        int existingCount = (int)checkCmd.ExecuteScalar();
-                        if (existingCount > 0)
+        private bool ValidateRegistrationInputs()
+        {
+            
+            if (string.IsNullOrWhiteSpace(ResidentIDtxt.Text) ||
+                 string.IsNullOrWhiteSpace(FirstNametxt.Text) ||
+                 string.IsNullOrWhiteSpace(lastNametxt.Text) ||
+                 string.IsNullOrWhiteSpace(addresstxt.Text) ||
+                 string.IsNullOrWhiteSpace(emergencyNumtxt.Text) ||
+                 string.IsNullOrWhiteSpace(emergencyPersontxt.Text) ||
+                 string.IsNullOrWhiteSpace(Emailtxt.Text) ||
+                 string.IsNullOrWhiteSpace(contactnumtxt.Text) ||
+                 cmbType.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please fill in all required fields.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }      
+            if (!Regex.IsMatch(Emailtxt.Text.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Please enter a valid email address.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }        
+            if (!Regex.IsMatch(contactnumtxt.Text.Trim(), @"^\d{" + ContactNumberLength + "}$"))
+            {
+                MessageBox.Show($"Contact number must be exactly {ContactNumberLength} digits.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }          
+            if (!Regex.IsMatch(emergencyNumtxt.Text.Trim(), @"^\d{" + ContactNumberLength + "}$"))
+            {
+                MessageBox.Show($"Emergency contact number must be exactly {ContactNumberLength} digits.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+        private void Addbtn_Click(object sender, EventArgs e)
+        {
+            if (!ValidateRegistrationInputs())
+                return;
+
+            try
+            {
+                int inputHomeownerId = Convert.ToInt32(ResidentIDtxt.Text.Trim());
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();              
+                    if (!homeownerId.HasValue)
+                    {
+                        string checkQuery = "SELECT COUNT(*) FROM Residents WHERE HomeownerID = @id";
+                        SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                        checkCmd.Parameters.AddWithValue("@id", inputHomeownerId);
+
+                        int idExists = Convert.ToInt32(checkCmd.ExecuteScalar());
+                        if (idExists > 0)
                         {
-                            MessageBox.Show("A profile with this name and contact number already exists!", "Duplicate Entry",
+                            MessageBox.Show("This Resident ID already exists. Please use a different ID.", "Duplicate ID",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
 
-                    string insertQuery = @"INSERT INTO TBL_Profiles 
-                                 (FullName, CompleteAddress, ContactNumber, MemberSince, PositionInHOA) 
-                                 VALUES 
-                                 (@fullName, @address, @contact, @memberSince, @position)";
+                    string query;
+                    SqlCommand cmd;
 
-                    using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
+                    if (homeownerId.HasValue) 
                     {
-                        cmd.Parameters.AddWithValue("@fullName", fullName.Trim());
-                        cmd.Parameters.AddWithValue("@address", string.IsNullOrWhiteSpace(address) ? (object)DBNull.Value : address.Trim());
-                        cmd.Parameters.AddWithValue("@contact", string.IsNullOrWhiteSpace(contact) ? (object)DBNull.Value : contact.Trim());
-                        cmd.Parameters.AddWithValue("@memberSince", memberSince);
-                        cmd.Parameters.AddWithValue("@position", position);
+                        query = @"UPDATE Residents SET
+                         FirstName = @FirstName,
+                         MiddleName = @MiddleName,
+                         LastName = @LastName,
+                         HomeAddress = @HomeAddress,
+                         ContactNumber = @ContactNumber,
+                         EmailAddress = @EmailAddress,
+                         EmergencyContactPerson = @EmergencyContactPerson,
+                         EmergencyContactNumber = @EmergencyContactNumber,
+                         ResidencyType = @ResidencyType
+                       WHERE HomeownerID = @HomeownerID";
 
-                        int rowsAffected = cmd.ExecuteNonQuery();
+                        cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@HomeownerID", homeownerId.Value);
+                    }
+                    else 
+                    {
+                        query = @"INSERT INTO Residents
+                         (HomeownerID, FirstName, MiddleName, LastName, HomeAddress, ContactNumber,
+                          EmailAddress, EmergencyContactPerson,
+                          EmergencyContactNumber, ResidencyType, IsActive)
+                         VALUES
+                         (@HomeownerID, @FirstName, @MiddleName, @LastName, @HomeAddress, @ContactNumber,
+                          @EmailAddress, @EmergencyContactPerson,
+                          @EmergencyContactNumber, @ResidencyType, 1)";
 
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Profile added successfully!", "Success",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@HomeownerID", inputHomeownerId);
+                    }                 
+                    cmd.Parameters.AddWithValue("@FirstName", FirstNametxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@MiddleName", string.IsNullOrEmpty(MiddleNametxt.Text) ? (object)DBNull.Value : MiddleNametxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@LastName", lastNametxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@HomeAddress", addresstxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ContactNumber", contactnumtxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@EmailAddress", Emailtxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@EmergencyContactPerson", emergencyPersontxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@EmergencyContactNumber", emergencyNumtxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ResidencyType", cmbType.Text);
 
-                            ProfileAdded?.Invoke(this, EventArgs.Empty);
-                            this.DialogResult = DialogResult.OK;
-                            this.Close();
-                        }
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        string message = homeownerId.HasValue ?
+                            "Homeowner updated successfully!" :
+                            $"Homeowner registered successfully with ID: {inputHomeownerId}!";
+
+                        MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No changes were made.", "Information",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                MessageBox.Show($"Database error: {sqlEx.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error",
+                MessageBox.Show($"Error saving homeowner: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ClearForm()
+        {
+            FirstNametxt.Clear();
+            MiddleNametxt.Clear();
+            lastNametxt.Clear();
+            addresstxt.Clear();
+            contactnumtxt.Clear();
+            Emailtxt.Clear();
+            emergencyPersontxt.Clear();
+            emergencyNumtxt.Clear();
+            ResidentIDtxt.Clear();
+
+            cmbType.SelectedIndex = 0;
+        }
+
+        private void Clearbtn_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to clear all fields?", "Confirm Clear",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ClearForm();
             }
         }
 
         private void cancelvisitor_Click(object sender, EventArgs e)
-            {
+        {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
-        private void Addbtn_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Please enter Full Name.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (cmbPosition.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a Position.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            SaveProfile(
-                txtName.Text.Trim(),
-                txtAddress.Text.Trim(),
-                txtContact.Text.Trim(),
-                DTPProfile.Value,
-                cmbPosition.SelectedItem.ToString()
-            );
-        }
+        private void textBox1_TextChanged(object sender, EventArgs e) { }
+        private void ProfilePic_Click(object sender, EventArgs e) { }
+        private void button2_Click(object sender, EventArgs e) { }
+        private void savevisitor_Click(object sender, EventArgs e) { }
+        private void button1_Click(object sender, EventArgs e) { }
+        private void label1_Click(object sender, EventArgs e) { }
+        private void textBox1_TextChanged_1(object sender, EventArgs e) { }
+        private void label14_Click(object sender, EventArgs e) { }
+        private void cmbPosition_SelectedIndexChanged(object sender, EventArgs e) { }
     }
-    }
-
+}

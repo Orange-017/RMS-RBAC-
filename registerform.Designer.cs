@@ -294,6 +294,7 @@
             this.cmbRole.Name = "cmbRole";
             this.cmbRole.Size = new System.Drawing.Size(275, 24);
             this.cmbRole.TabIndex = 23;
+            this.cmbRole.SelectedIndexChanged += new System.EventHandler(this.cmbRole_SelectedIndexChanged);
             // 
             // pbProfilePic
             // 

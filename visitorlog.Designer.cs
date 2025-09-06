@@ -52,9 +52,9 @@
             this.panel1.Controls.Add(this.searchbtn);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.VisitorLogDGV);
-            this.panel1.Location = new System.Drawing.Point(53, 151);
+            this.panel1.Location = new System.Drawing.Point(26, 144);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1060, 565);
+            this.panel1.Size = new System.Drawing.Size(1060, 572);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -114,12 +114,13 @@
             // 
             this.VisitorLogDGV.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.VisitorLogDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.VisitorLogDGV.Location = new System.Drawing.Point(42, 87);
+            this.VisitorLogDGV.Location = new System.Drawing.Point(22, 79);
             this.VisitorLogDGV.Name = "VisitorLogDGV";
             this.VisitorLogDGV.RowHeadersWidth = 51;
             this.VisitorLogDGV.RowTemplate.Height = 24;
-            this.VisitorLogDGV.Size = new System.Drawing.Size(1013, 473);
+            this.VisitorLogDGV.Size = new System.Drawing.Size(1013, 470);
             this.VisitorLogDGV.TabIndex = 0;
+            this.VisitorLogDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.VisitorLogDGV_CellContentClick);
             // 
             // panel2
             // 
@@ -127,7 +128,7 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.addvisitor);
-            this.panel2.Location = new System.Drawing.Point(53, 36);
+            this.panel2.Location = new System.Drawing.Point(26, 32);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1060, 90);
             this.panel2.TabIndex = 1;
@@ -170,7 +171,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "visitorlog";
-            this.Size = new System.Drawing.Size(1164, 737);
+            this.Size = new System.Drawing.Size(1110, 736);
             this.Load += new System.EventHandler(this.visitorlog_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
