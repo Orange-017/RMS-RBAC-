@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OfficerInfo));
             this.officerPanel = new System.Windows.Forms.Panel();
             this.Editbtn = new System.Windows.Forms.Button();
             this.registerbtn = new System.Windows.Forms.Button();
+            this.searchbtn = new FontAwesome.Sharp.IconButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Deletebtn = new System.Windows.Forms.Button();
             this.Refreshbtn = new System.Windows.Forms.Button();
             this.DGVOfficers = new System.Windows.Forms.DataGridView();
-            this.searchbtn = new FontAwesome.Sharp.IconButton();
             this.officerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVOfficers)).BeginInit();
             this.SuspendLayout();
             // 
             // officerPanel
             // 
-            this.officerPanel.BackColor = System.Drawing.Color.White;
+            this.officerPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.officerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.officerPanel.Controls.Add(this.Editbtn);
             this.officerPanel.Controls.Add(this.registerbtn);
@@ -61,20 +62,33 @@
             // 
             this.Editbtn.Location = new System.Drawing.Point(169, 65);
             this.Editbtn.Name = "Editbtn";
-            this.Editbtn.Size = new System.Drawing.Size(96, 29);
+            this.Editbtn.Size = new System.Drawing.Size(98, 35);
             this.Editbtn.TabIndex = 13;
             this.Editbtn.Text = "Edit";
             this.Editbtn.UseVisualStyleBackColor = true;
             // 
             // registerbtn
             // 
-            this.registerbtn.Location = new System.Drawing.Point(749, 81);
+            this.registerbtn.Location = new System.Drawing.Point(749, 78);
             this.registerbtn.Name = "registerbtn";
             this.registerbtn.Size = new System.Drawing.Size(290, 37);
             this.registerbtn.TabIndex = 12;
             this.registerbtn.Text = "Register Officer Account";
             this.registerbtn.UseVisualStyleBackColor = true;
             this.registerbtn.Click += new System.EventHandler(this.registerbtn_Click);
+            // 
+            // searchbtn
+            // 
+            this.searchbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.searchbtn.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.searchbtn.IconColor = System.Drawing.Color.Black;
+            this.searchbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.searchbtn.IconSize = 28;
+            this.searchbtn.Location = new System.Drawing.Point(989, 25);
+            this.searchbtn.Name = "searchbtn";
+            this.searchbtn.Size = new System.Drawing.Size(50, 38);
+            this.searchbtn.TabIndex = 11;
+            this.searchbtn.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
@@ -109,34 +123,23 @@
             // 
             this.DGVOfficers.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.DGVOfficers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVOfficers.Location = new System.Drawing.Point(18, 135);
+            this.DGVOfficers.Location = new System.Drawing.Point(19, 131);
             this.DGVOfficers.Name = "DGVOfficers";
             this.DGVOfficers.RowHeadersWidth = 51;
             this.DGVOfficers.RowTemplate.Height = 24;
             this.DGVOfficers.Size = new System.Drawing.Size(1021, 447);
             this.DGVOfficers.TabIndex = 8;
             // 
-            // searchbtn
-            // 
-            this.searchbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.searchbtn.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            this.searchbtn.IconColor = System.Drawing.Color.Black;
-            this.searchbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.searchbtn.IconSize = 28;
-            this.searchbtn.Location = new System.Drawing.Point(989, 25);
-            this.searchbtn.Name = "searchbtn";
-            this.searchbtn.Size = new System.Drawing.Size(50, 38);
-            this.searchbtn.TabIndex = 11;
-            this.searchbtn.UseVisualStyleBackColor = true;
-            // 
             // OfficerInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1136, 673);
             this.Controls.Add(this.officerPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "OfficerInfo";
-            this.Text = "OfficerInfo";
             this.Load += new System.EventHandler(this.OfficerInfo_Load);
             this.officerPanel.ResumeLayout(false);
             this.officerPanel.PerformLayout();

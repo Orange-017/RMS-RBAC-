@@ -9,18 +9,15 @@ namespace RECOMANAGESYS
         private static string connectionString =
             "Data Source=LAPTOP-FT905FTC\\SQLEXPRESS;Initial Catalog=RecordManagement;Integrated Security=True;";
 
-        private int? prefilledHomeownerId;
-
-        public AddUnits()
+    
+        private int _homeownerId;
+        private string _residencyType;
+      
+        public AddUnits(int homeownerId,string residencyType )
         {
             InitializeComponent();
-            this.Text = "Add New Unit";
-        }
-
-        public AddUnits(int homeownerId)
-        {
-            InitializeComponent();
-            this.prefilledHomeownerId = homeownerId;
+            _homeownerId = homeownerId;
+            _residencyType = residencyType;
             this.Text = "Add New Unit";
 
             if (HomeownerID != null)
@@ -42,7 +39,20 @@ namespace RECOMANAGESYS
                     if (cmbUnitType.Items.Count > 0)
                         cmbUnitType.SelectedIndex = 0;
                 }
+
                 LoadApprovedByUsers();
+                if (_residencyType != "Owner")
+                {
+                    cmbApprovedBy.Enabled = false;
+                    DTPOwnership.Enabled = false;
+                }
+                else
+                {
+                    cmbApprovedBy.Enabled = true;
+                    DTPOwnership.Enabled = true;
+                }
+
+                HomeownerID.Text = _homeownerId.ToString();
             }
             catch (Exception ex)
             {
@@ -116,7 +126,7 @@ namespace RECOMANAGESYS
                         {
                             if (lblHomeownerInfo != null)
                             {
-                                lblHomeownerInfo.Text = "Homeowner not found!";
+                                lblHomeownerInfo.Text = "Homeowner not found";
                                 lblHomeownerInfo.ForeColor = System.Drawing.Color.Red;
                             }
                         }
@@ -241,7 +251,7 @@ namespace RECOMANAGESYS
                     {
                         try
                         {
-
+                            
                             string checkQuery = "SELECT COUNT(*) FROM Residents WHERE HomeownerID = @id AND IsActive = 1";
                             SqlCommand checkCmd = new SqlCommand(checkQuery, con, transaction);
                             checkCmd.Parameters.AddWithValue("@id", homeownerId);
@@ -249,56 +259,146 @@ namespace RECOMANAGESYS
                             int homeownerExists = Convert.ToInt32(checkCmd.ExecuteScalar());
                             if (homeownerExists == 0)
                             {
-                                MessageBox.Show("Homeowner ID does not exist or is inactive!", "Error",
+                                MessageBox.Show("Homeowner ID does not exist", "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 transaction.Rollback();
                                 return;
                             }
 
-                            string duplicateQuery = "SELECT COUNT(*) FROM TBL_Units WHERE UnitNumber = @unitNumber";
-                            SqlCommand duplicateCmd = new SqlCommand(duplicateQuery, con, transaction);
-                            duplicateCmd.Parameters.AddWithValue("@unitNumber", unitNumbertxt.Text.Trim());
+                            int unitId = -1;
 
-                            int duplicateExists = Convert.ToInt32(duplicateCmd.ExecuteScalar());
-                            if (duplicateExists > 0)
+                          
+                            if (_residencyType == "Owner")
                             {
-                                MessageBox.Show("This unit number already exists!", "Duplicate Unit",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                transaction.Rollback();
-                                return;
+                                
+                                string findUnitQuery = @"SELECT UnitID FROM TBL_Units 
+                             WHERE UnitNumber = @unitNumber AND Block = @block";
+                                SqlCommand findUnitCmd = new SqlCommand(findUnitQuery, con, transaction);
+                                findUnitCmd.Parameters.AddWithValue("@unitNumber", unitNumbertxt.Text.Trim());
+                                findUnitCmd.Parameters.AddWithValue("@block", blocktxt?.Text?.Trim() ?? (object)DBNull.Value);
+
+                                object existingUnit = findUnitCmd.ExecuteScalar();
+
+                                if (existingUnit != null)
+                                {
+                                    unitId = Convert.ToInt32(existingUnit);
+
+                                 
+                                    string checkOwnerQuery = @"SELECT COUNT(*) 
+                                   FROM HomeownerUnits hu
+                                   INNER JOIN Residents r ON hu.HomeownerID = r.HomeownerID
+                                   WHERE hu.UnitID = @unitId AND r.ResidencyType = 'Owner'";
+                                    SqlCommand checkOwnerCmd = new SqlCommand(checkOwnerQuery, con, transaction);
+                                    checkOwnerCmd.Parameters.AddWithValue("@unitId", unitId);
+
+                                    int existingOwner = Convert.ToInt32(checkOwnerCmd.ExecuteScalar());
+                                    if (existingOwner > 0)
+                                    {
+                                        MessageBox.Show("This unit already has an owner.", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        transaction.Rollback();
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                             
+                                    string insertUnitQuery = @"INSERT INTO TBL_Units (UnitNumber, Block, UnitType, IsOccupied)
+                                   VALUES (@unitNumber, @block, @unitType, 0);
+                                   SELECT SCOPE_IDENTITY();";
+                                    SqlCommand insertUnitCmd = new SqlCommand(insertUnitQuery, con, transaction);
+                                    insertUnitCmd.Parameters.AddWithValue("@unitNumber", unitNumbertxt.Text.Trim());
+                                    insertUnitCmd.Parameters.AddWithValue("@block", blocktxt?.Text?.Trim() ?? (object)DBNull.Value);
+                                    insertUnitCmd.Parameters.AddWithValue("@unitType", cmbUnitType?.Text ?? (object)DBNull.Value);
+
+                                    unitId = Convert.ToInt32(insertUnitCmd.ExecuteScalar());
+                                }
+                            }
+                            else
+                            {
+                              
+                                string findUnitQuery = @"SELECT UnitID FROM TBL_Units 
+                             WHERE UnitNumber = @unitNumber AND Block = @block";
+                                SqlCommand findUnitCmd = new SqlCommand(findUnitQuery, con, transaction);
+                                findUnitCmd.Parameters.AddWithValue("@unitNumber", unitNumbertxt.Text.Trim());
+                                findUnitCmd.Parameters.AddWithValue("@block", blocktxt?.Text?.Trim() ?? (object)DBNull.Value);
+
+                                object result = findUnitCmd.ExecuteScalar();
+                                if (result == null)
+                                {
+                                    MessageBox.Show("This unit does not exist.",
+                                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    transaction.Rollback();
+                                    return;
+                                }
+
+                                unitId = Convert.ToInt32(result);
                             }
 
-                            string insertUnitQuery = @"INSERT INTO TBL_Units (UnitNumber, Block, Lot, UnitType)
-                                               VALUES (@unitNumber, @block, @lot, @unitType);
-                                               SELECT SCOPE_IDENTITY();";
-
-                            SqlCommand insertUnitCmd = new SqlCommand(insertUnitQuery, con, transaction);
-                            insertUnitCmd.Parameters.AddWithValue("@unitNumber", unitNumbertxt.Text.Trim());
-                            insertUnitCmd.Parameters.AddWithValue("@block", blocktxt?.Text?.Trim() ?? (object)DBNull.Value);
-                            insertUnitCmd.Parameters.AddWithValue("@lot", lottxt?.Text?.Trim() ?? (object)DBNull.Value);
-                            insertUnitCmd.Parameters.AddWithValue("@unitType", cmbUnitType?.Text ?? (object)DBNull.Value);
-
-                            int newUnitId = Convert.ToInt32(insertUnitCmd.ExecuteScalar());
-
-                            object approvedByValue = DBNull.Value;
-                            if (cmbApprovedBy != null && cmbApprovedBy.SelectedIndex > 0)
+                     
+                            string getUnitTypeQuery = "SELECT UnitType FROM TBL_Units WHERE UnitID = @unitId";
+                            SqlCommand typeCmd = new SqlCommand(getUnitTypeQuery, con, transaction);
+                            typeCmd.Parameters.AddWithValue("@unitId", unitId);
+                            string unitType = (string)typeCmd.ExecuteScalar();
+                         
+                            if (unitType != "Apartment")
                             {
-                                ListItem selectedItem = (ListItem)cmbApprovedBy.SelectedItem;
-                                approvedByValue = selectedItem.Value;
+                                string checkUnitQuery = "SELECT COUNT(*) FROM HomeownerUnits WHERE UnitID = @unitId";
+                                SqlCommand checkUnitCmd = new SqlCommand(checkUnitQuery, con, transaction);
+                                checkUnitCmd.Parameters.AddWithValue("@unitId", unitId);
+
+                                int existingLinks = Convert.ToInt32(checkUnitCmd.ExecuteScalar());
+                                if (existingLinks > 0)
+                                {
+                                    MessageBox.Show("This unit is already assigned to another resident.",
+                                        "Unit Taken", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    transaction.Rollback();
+                                    return;
+                                }
                             }
 
-                            string insertJunctionQuery = @"INSERT INTO HomeownerUnits (HomeownerID, UnitID, DateOfOwnership, ApprovedByUserID)
-                                                     VALUES (@homeownerId, @unitId, @dateOfOwnership, @ApprovedByUserID)";
+                            string insertJunctionQuery;
+                            if (_residencyType == "Owner")
+                            {
+                                insertJunctionQuery = @"INSERT INTO HomeownerUnits 
+                                                (HomeownerID, UnitID, DateOfOwnership, ApprovedByUserID)
+                                                VALUES (@homeownerId, @unitId, @dateOfOwnership, @ApprovedByUserID)";
+                            }
+                            else
+                            {
+                                insertJunctionQuery = @"INSERT INTO HomeownerUnits (HomeownerID, UnitID)
+                                                VALUES (@homeownerId, @unitId)";
+                            }
+
                             SqlCommand insertJunctionCmd = new SqlCommand(insertJunctionQuery, con, transaction);
                             insertJunctionCmd.Parameters.AddWithValue("@homeownerId", homeownerId);
-                            insertJunctionCmd.Parameters.AddWithValue("@unitId", newUnitId);
-                            insertJunctionCmd.Parameters.AddWithValue("@dateOfOwnership", DateTime.Now);
-                            insertJunctionCmd.Parameters.AddWithValue("@ApprovedByUserID", approvedByValue);
+                            insertJunctionCmd.Parameters.AddWithValue("@unitId", unitId);
+
+                            if (_residencyType == "Owner")
+                            {
+                                insertJunctionCmd.Parameters.AddWithValue("@dateOfOwnership", DTPOwnership.Value);
+
+                                object approvedByValue = DBNull.Value;
+                                if (cmbApprovedBy != null && cmbApprovedBy.SelectedIndex > 0)
+                                {
+                                    ListItem selectedItem = (ListItem)cmbApprovedBy.SelectedItem;
+                                    approvedByValue = selectedItem.Value;
+                                }
+                                insertJunctionCmd.Parameters.AddWithValue("@ApprovedByUserID", approvedByValue);
+                            }
+
                             insertJunctionCmd.ExecuteNonQuery();
 
-                            transaction.Commit();
+                            if (unitType != "Apartment")
+                            {
+                                string updateUnitStatusQuery = "UPDATE TBL_Units SET IsOccupied = 1 WHERE UnitID = @unitId";
+                                SqlCommand updateUnitStatusCmd = new SqlCommand(updateUnitStatusQuery, con, transaction);
+                                updateUnitStatusCmd.Parameters.AddWithValue("@unitId", unitId);
+                                updateUnitStatusCmd.ExecuteNonQuery();
+                            }
 
-                            MessageBox.Show("Unit added successfully!", "Success",
+                            transaction.Commit();
+                            MessageBox.Show("Unit added successfully", "Success",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             this.DialogResult = DialogResult.OK;

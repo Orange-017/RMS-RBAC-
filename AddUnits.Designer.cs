@@ -28,176 +28,188 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUnits));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.unitNumbertxt = new System.Windows.Forms.TextBox();
             this.blocktxt = new System.Windows.Forms.TextBox();
-            this.lottxt = new System.Windows.Forms.TextBox();
             this.Savebtn = new System.Windows.Forms.Button();
             this.Cancelbtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbUnitType = new System.Windows.Forms.ComboBox();
             this.HomeownerID = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.lblHomeownerInfo = new System.Windows.Forms.Label();
             this.DTPOwnership = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.cmbApprovedBy = new System.Windows.Forms.ComboBox();
+            this.lblHomeownerInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 45);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(97, 135);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 16);
+            this.label1.Size = new System.Drawing.Size(192, 27);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Unit Number";
+            this.label1.Text = "Unit(Lot) Number";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 143);
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(97, 219);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 16);
+            this.label2.Size = new System.Drawing.Size(67, 27);
             this.label2.TabIndex = 1;
             this.label2.Text = "Block";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(55, 228);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(25, 16);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Lot";
-            // 
             // unitNumbertxt
             // 
-            this.unitNumbertxt.Location = new System.Drawing.Point(71, 75);
+            this.unitNumbertxt.Location = new System.Drawing.Point(102, 165);
+            this.unitNumbertxt.Multiline = true;
             this.unitNumbertxt.Name = "unitNumbertxt";
-            this.unitNumbertxt.Size = new System.Drawing.Size(135, 22);
+            this.unitNumbertxt.Size = new System.Drawing.Size(282, 35);
             this.unitNumbertxt.TabIndex = 3;
             // 
             // blocktxt
             // 
-            this.blocktxt.Location = new System.Drawing.Point(71, 163);
+            this.blocktxt.Location = new System.Drawing.Point(102, 246);
+            this.blocktxt.Multiline = true;
             this.blocktxt.Name = "blocktxt";
-            this.blocktxt.Size = new System.Drawing.Size(144, 22);
+            this.blocktxt.Size = new System.Drawing.Size(282, 35);
             this.blocktxt.TabIndex = 4;
-            // 
-            // lottxt
-            // 
-            this.lottxt.Location = new System.Drawing.Point(58, 247);
-            this.lottxt.Name = "lottxt";
-            this.lottxt.Size = new System.Drawing.Size(169, 22);
-            this.lottxt.TabIndex = 5;
             // 
             // Savebtn
             // 
-            this.Savebtn.Location = new System.Drawing.Point(404, 247);
+            this.Savebtn.BackColor = System.Drawing.Color.RoyalBlue;
+            this.Savebtn.FlatAppearance.BorderSize = 0;
+            this.Savebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Savebtn.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.Savebtn.ForeColor = System.Drawing.Color.White;
+            this.Savebtn.Location = new System.Drawing.Point(657, 394);
             this.Savebtn.Name = "Savebtn";
-            this.Savebtn.Size = new System.Drawing.Size(99, 24);
+            this.Savebtn.Size = new System.Drawing.Size(100, 42);
             this.Savebtn.TabIndex = 6;
             this.Savebtn.Text = "Save";
-            this.Savebtn.UseVisualStyleBackColor = true;
+            this.Savebtn.UseVisualStyleBackColor = false;
             this.Savebtn.Click += new System.EventHandler(this.Savebtn_Click);
             // 
             // Cancelbtn
             // 
-            this.Cancelbtn.Location = new System.Drawing.Point(272, 247);
+            this.Cancelbtn.FlatAppearance.BorderSize = 0;
+            this.Cancelbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Cancelbtn.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
+            this.Cancelbtn.Location = new System.Drawing.Point(535, 393);
             this.Cancelbtn.Name = "Cancelbtn";
-            this.Cancelbtn.Size = new System.Drawing.Size(99, 24);
+            this.Cancelbtn.Size = new System.Drawing.Size(100, 42);
             this.Cancelbtn.TabIndex = 7;
-            this.Cancelbtn.Text = "cancel";
+            this.Cancelbtn.Text = "Cancel";
             this.Cancelbtn.UseVisualStyleBackColor = true;
             this.Cancelbtn.Click += new System.EventHandler(this.Cancelbtn_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(316, 45);
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(97, 298);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 16);
+            this.label4.Size = new System.Drawing.Size(110, 27);
             this.label4.TabIndex = 9;
             this.label4.Text = "Unit Type";
             // 
             // cmbUnitType
             // 
+            this.cmbUnitType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUnitType.FormattingEnabled = true;
-            this.cmbUnitType.Location = new System.Drawing.Point(319, 65);
+            this.cmbUnitType.Location = new System.Drawing.Point(102, 328);
             this.cmbUnitType.Name = "cmbUnitType";
-            this.cmbUnitType.Size = new System.Drawing.Size(169, 24);
+            this.cmbUnitType.Size = new System.Drawing.Size(282, 33);
             this.cmbUnitType.TabIndex = 12;
             // 
             // HomeownerID
             // 
-            this.HomeownerID.Location = new System.Drawing.Point(558, 65);
+            this.HomeownerID.Location = new System.Drawing.Point(439, 249);
+            this.HomeownerID.Multiline = true;
             this.HomeownerID.Name = "HomeownerID";
-            this.HomeownerID.Size = new System.Drawing.Size(174, 22);
+            this.HomeownerID.Size = new System.Drawing.Size(318, 35);
             this.HomeownerID.TabIndex = 14;
             this.HomeownerID.TextChanged += new System.EventHandler(this.HomeownerID_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(555, 46);
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label6.Location = new System.Drawing.Point(434, 219);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(96, 16);
+            this.label6.Size = new System.Drawing.Size(165, 27);
             this.label6.TabIndex = 15;
             this.label6.Text = "Homeowner ID";
             // 
-            // lblHomeownerInfo
-            // 
-            this.lblHomeownerInfo.AutoSize = true;
-            this.lblHomeownerInfo.Location = new System.Drawing.Point(555, 111);
-            this.lblHomeownerInfo.Name = "lblHomeownerInfo";
-            this.lblHomeownerInfo.Size = new System.Drawing.Size(44, 16);
-            this.lblHomeownerInfo.TabIndex = 16;
-            this.lblHomeownerInfo.Text = "label7";
-            // 
             // DTPOwnership
             // 
-            this.DTPOwnership.Location = new System.Drawing.Point(558, 183);
+            this.DTPOwnership.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DTPOwnership.Location = new System.Drawing.Point(439, 333);
             this.DTPOwnership.Name = "DTPOwnership";
-            this.DTPOwnership.Size = new System.Drawing.Size(200, 22);
+            this.DTPOwnership.Size = new System.Drawing.Size(318, 30);
             this.DTPOwnership.TabIndex = 18;
             this.DTPOwnership.ValueChanged += new System.EventHandler(this.DTPOwnership_ValueChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(316, 143);
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label5.Location = new System.Drawing.Point(434, 135);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 16);
+            this.label5.Size = new System.Drawing.Size(148, 27);
             this.label5.TabIndex = 19;
             this.label5.Text = "Approved By:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(558, 161);
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label7.Location = new System.Drawing.Point(434, 303);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(116, 16);
+            this.label7.Size = new System.Drawing.Size(201, 27);
             this.label7.TabIndex = 20;
             this.label7.Text = "Date of Ownership";
             // 
             // cmbApprovedBy
             // 
+            this.cmbApprovedBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbApprovedBy.FormattingEnabled = true;
-            this.cmbApprovedBy.Location = new System.Drawing.Point(319, 163);
+            this.cmbApprovedBy.Location = new System.Drawing.Point(439, 165);
             this.cmbApprovedBy.Name = "cmbApprovedBy";
-            this.cmbApprovedBy.Size = new System.Drawing.Size(169, 24);
+            this.cmbApprovedBy.Size = new System.Drawing.Size(318, 33);
             this.cmbApprovedBy.TabIndex = 21;
+            // 
+            // lblHomeownerInfo
+            // 
+            this.lblHomeownerInfo.AutoSize = true;
+            this.lblHomeownerInfo.BackColor = System.Drawing.Color.Transparent;
+            this.lblHomeownerInfo.Location = new System.Drawing.Point(99, 419);
+            this.lblHomeownerInfo.Name = "lblHomeownerInfo";
+            this.lblHomeownerInfo.Size = new System.Drawing.Size(86, 16);
+            this.lblHomeownerInfo.TabIndex = 16;
+            this.lblHomeownerInfo.Text = "VALIDATION";
             // 
             // AddUnits
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 345);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(858, 503);
             this.Controls.Add(this.cmbApprovedBy);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -209,14 +221,12 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Cancelbtn);
             this.Controls.Add(this.Savebtn);
-            this.Controls.Add(this.lottxt);
             this.Controls.Add(this.blocktxt);
             this.Controls.Add(this.unitNumbertxt);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddUnits";
-            this.Text = "AddUnits";
             this.Load += new System.EventHandler(this.AddUnits_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -227,20 +237,18 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox unitNumbertxt;
         private System.Windows.Forms.TextBox blocktxt;
-        private System.Windows.Forms.TextBox lottxt;
         private System.Windows.Forms.Button Savebtn;
         private System.Windows.Forms.Button Cancelbtn;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbUnitType;
         private System.Windows.Forms.TextBox HomeownerID;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblHomeownerInfo;
         private System.Windows.Forms.DateTimePicker DTPOwnership;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbApprovedBy;
+        private System.Windows.Forms.Label lblHomeownerInfo;
     }
 }

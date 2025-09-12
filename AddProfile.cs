@@ -1,4 +1,4 @@
-﻿// My add residency form 
+﻿
 using System;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;

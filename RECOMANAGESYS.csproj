@@ -126,12 +126,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="addhomeowner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="addhomeowner.Designer.cs">
-      <DependentUpon>addhomeowner.cs</DependentUpon>
-    </Compile>
     <Compile Include="AddProfile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,9 +231,6 @@
     <Compile Include="visitorlog.Designer.cs">
       <DependentUpon>visitorlog.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="addhomeowner.resx">
-      <DependentUpon>addhomeowner.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AddProfile.resx">
       <DependentUpon>AddProfile.cs</DependentUpon>
     </EmbeddedResource>

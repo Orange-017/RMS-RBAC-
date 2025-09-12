@@ -31,36 +31,32 @@ namespace RECOMANAGESYS
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-            
+                    conn.Open();                 
                     string query = @"
-                SELECT
-                    r.HomeownerID,
-                    ISNULL(r.FirstName, '') as FirstName,
-                    ISNULL(r.MiddleName, '') as MiddleName,
-                    ISNULL(r.LastName, '') as LastName,
-                    ISNULL(r.HomeAddress, '') as HomeAddress,
-                    ISNULL(r.ContactNumber, '') as ContactNumber,
-                    ISNULL(r.EmailAddress, '') as EmailAddress,
-                    ISNULL(r.EmergencyContactPerson, '') as EmergencyContactPerson,
-                    ISNULL(r.EmergencyContactNumber, '') as EmergencyContactNumber,
-                    ISNULL(r.ResidencyType, '') as ResidencyType,
-                    ISNULL(hu.ApprovedByUserID, 0) as ApprovedByUserID,
-                    ISNULL(COUNT(hu.UnitID), 0) as UnitsAcquired
-                FROM Residents r
-                LEFT JOIN HomeownerUnits hu ON r.HomeownerID = hu.HomeownerID
-                WHERE r.IsActive = 1
-                GROUP BY r.HomeownerID, r.FirstName, r.MiddleName, r.LastName,
-                         r.HomeAddress, r.ContactNumber, r.EmailAddress,
-                         r.EmergencyContactPerson, r.EmergencyContactNumber,
-                         r.ResidencyType, hu.ApprovedByUserID
-                ORDER BY r.HomeownerID"; 
+                        SELECT
+                            r.HomeownerID,
+                            ISNULL(r.FirstName, '') AS FirstName,
+                            ISNULL(r.MiddleName, '') AS MiddleName,
+                            ISNULL(r.LastName, '') AS LastName,
+                            ISNULL(r.HomeAddress, '') AS HomeAddress,
+                            ISNULL(r.ContactNumber, '') AS ContactNumber,
+                            ISNULL(r.EmailAddress, '') AS EmailAddress,
+                            ISNULL(r.EmergencyContactPerson, '') AS EmergencyContactPerson,
+                            ISNULL(r.EmergencyContactNumber, '') AS EmergencyContactNumber,
+                            ISNULL(r.ResidencyType, '') AS ResidencyType,
+                            -- Grab an ApprovedByUserID if present (top 1); otherwise 0
+                            (SELECT TOP 1 ISNULL(hu.ApprovedByUserID, 0) FROM HomeownerUnits hu WHERE hu.HomeownerID = r.HomeownerID) AS ApprovedByUserID,
+                            -- Count units per homeowner
+                            (SELECT COUNT(*) FROM HomeownerUnits hu WHERE hu.HomeownerID = r.HomeownerID) AS UnitsAcquired
+                        FROM Residents r
+                        WHERE r.IsActive = 1
+                        ORDER BY r.HomeownerID;
+                    ";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                   
                     DGVResidents.DataSource = dt;
                     SetupColumns();
                 }
@@ -72,7 +68,7 @@ namespace RECOMANAGESYS
                 LoadHomeownersSimple();
             }
         }
-     
+
         private void LoadHomeownersSimple()
         {
             try
@@ -81,7 +77,6 @@ namespace RECOMANAGESYS
                 {
                     conn.Open();
 
-                
                     string query = @"
                         SELECT
                             HomeownerID,
@@ -112,14 +107,12 @@ namespace RECOMANAGESYS
             }
         }
 
-  
         private void SetupColumns()
         {
             try
             {
                 if (DGVResidents.Columns.Count > 0)
                 {
-                   
                     if (DGVResidents.Columns["HomeownerID"] != null)
                     {
                         DGVResidents.Columns["HomeownerID"].HeaderText = "Homeowner ID";
@@ -181,7 +174,7 @@ namespace RECOMANAGESYS
                         DGVResidents.Columns["ResidencyType"].HeaderText = "Residency Type";
                         DGVResidents.Columns["ResidencyType"].Width = 80;
                     }
-            
+
                     if (DGVResidents.Columns["ApprovedByUserID"] != null)
                     {
                         DGVResidents.Columns["ApprovedByUserID"].HeaderText = "Approved By UserID";
@@ -195,7 +188,6 @@ namespace RECOMANAGESYS
                         DGVResidents.Columns["UnitsAcquired"].Width = 80;
                     }
 
-               
                     DGVResidents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                     DGVResidents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     DGVResidents.ReadOnly = true;
@@ -228,7 +220,6 @@ namespace RECOMANAGESYS
             }
         }
 
-      
         private void AddResidentsbtn_Click(object sender, EventArgs e)
         {
             try
@@ -236,7 +227,7 @@ namespace RECOMANAGESYS
                 ResidencyRegisterfrm registerForm = new ResidencyRegisterfrm();
                 if (registerForm.ShowDialog() == DialogResult.OK)
                 {
-                    LoadHomeowners(); 
+                    LoadHomeowners();
                 }
             }
             catch (Exception ex)
@@ -246,14 +237,12 @@ namespace RECOMANAGESYS
             }
         }
 
-   
         private void refreshbtn_Click(object sender, EventArgs e)
         {
             LoadHomeowners();
             MessageBox.Show("Data refreshed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-  
         private void Edit_Click(object sender, EventArgs e)
         {
             if (DGVResidents.SelectedRows.Count > 0)
@@ -262,7 +251,7 @@ namespace RECOMANAGESYS
                 {
                     int homeownerId = Convert.ToInt32(DGVResidents.SelectedRows[0].Cells["HomeownerID"].Value);
 
-                    ResidencyRegisterfrm editForm = new ResidencyRegisterfrm(homeownerId);          
+                    ResidencyRegisterfrm editForm = new ResidencyRegisterfrm(homeownerId);
 
                     if (editForm.ShowDialog() == DialogResult.OK)
                     {
@@ -281,176 +270,161 @@ namespace RECOMANAGESYS
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private void Deletebtn_Click(object sender, EventArgs e)
         {
-            if (DGVResidents.SelectedRows.Count > 0)
-            {
-                if (MessageBox.Show("WARNING: This will permanently delete this homeowner and all their associated units! This action cannot be undone.\n\nAre you sure you want to proceed?",
-                    "CONFIRM PERMANENT DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        int homeownerId = Convert.ToInt32(DGVResidents.SelectedRows[0].Cells["HomeownerID"].Value);
-                        string homeownerName = $"{DGVResidents.SelectedRows[0].Cells["FirstName"].Value} {DGVResidents.SelectedRows[0].Cells["LastName"].Value}";
-
-                        using (SqlConnection conn = new SqlConnection(connectionString))
-                        {
-                            conn.Open();
-
-                           
-                            string checkQuery = "SELECT COUNT(*) FROM Residents WHERE HomeownerID = @id";
-                            SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
-                            checkCmd.Parameters.AddWithValue("@id", homeownerId);
-                            int exists = Convert.ToInt32(checkCmd.ExecuteScalar());
-
-                            if (exists == 0)
-                            {
-                                MessageBox.Show($"Homeowner ID {homeownerId} not found in database.", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-
-                            using (SqlTransaction transaction = conn.BeginTransaction())
-                            {
-                                try
-                                {
-                                    int unitsDeleted = 0;
-                                    int homeownerUnitsDeleted = 0;
-                                    int residentDeleted = 0;
-
-                                    
-                                    List<int> unitIds = new List<int>();
-                                    string getUnitsQuery = "SELECT UnitID FROM HomeownerUnits WHERE HomeownerID = @id";
-                                    SqlCommand getUnitsCmd = new SqlCommand(getUnitsQuery, conn, transaction);
-                                    getUnitsCmd.Parameters.AddWithValue("@id", homeownerId);
-
-                                    using (SqlDataReader reader = getUnitsCmd.ExecuteReader())
-                                    {
-                                        while (reader.Read())
-                                        {
-                                            unitIds.Add(Convert.ToInt32(reader["UnitID"]));
-                                        }
-                                    }
-
-                                    
-                                    string deleteHomeownerUnitsQuery = "DELETE FROM HomeownerUnits WHERE HomeownerID = @id";
-                                    SqlCommand deleteHomeownerUnitsCmd = new SqlCommand(deleteHomeownerUnitsQuery, conn, transaction);
-                                    deleteHomeownerUnitsCmd.Parameters.AddWithValue("@id", homeownerId);
-                                    homeownerUnitsDeleted = deleteHomeownerUnitsCmd.ExecuteNonQuery();
-
-                                   
-                                    if (unitIds.Count > 0)
-                                    {
-                                       
-                                        string deleteUnitsQuery = "DELETE FROM TBL_Units WHERE UnitID IN ({0})";
-                                        string unitIdParameters = string.Join(",", unitIds.Select((id, index) => $"@unitId{index}"));
-                                        deleteUnitsQuery = string.Format(deleteUnitsQuery, unitIdParameters);
-
-                                        SqlCommand deleteUnitsCmd = new SqlCommand(deleteUnitsQuery, conn, transaction);
-
-                                      
-                                        for (int i = 0; i < unitIds.Count; i++)
-                                        {
-                                            deleteUnitsCmd.Parameters.AddWithValue($"@unitId{i}", unitIds[i]);
-                                        }
-
-                                        unitsDeleted = deleteUnitsCmd.ExecuteNonQuery();
-                                    }
-
-                                
-                                    string deleteResidentQuery = "DELETE FROM Residents WHERE HomeownerID = @id";
-                                    SqlCommand deleteResidentCmd = new SqlCommand(deleteResidentQuery, conn, transaction);
-                                    deleteResidentCmd.Parameters.AddWithValue("@id", homeownerId);
-                                    residentDeleted = deleteResidentCmd.ExecuteNonQuery();
-
-                                    if (residentDeleted > 0)
-                                    {
-                                        transaction.Commit();
-
-                                        MessageBox.Show($"PERMANENTLY DELETED:\n- Homeowner: {homeownerName} (ID: {homeownerId})\n- {unitsDeleted} unit(s)\n- {homeownerUnitsDeleted} unit association(s)",
-                                            "Deletion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                        LoadHomeowners(); 
-                                    }
-                                    else
-                                    {
-                                        transaction.Rollback();
-                                        MessageBox.Show("No records were deleted. The homeowner may not exist or was already deleted.", "Warning",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
-                                }
-                                catch (SqlException sqlEx)
-                                {
-                                    transaction.Rollback();
-
-                                    if (sqlEx.Number == 547) 
-                                    {
-                                        MessageBox.Show($"Cannot delete homeowner due to foreign key constraints.\n\nThere may be other records in the database that reference this homeowner.\n\nError: {sqlEx.Message}",
-                                            "Constraint Violation", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show($"SQL Error during deletion: {sqlEx.Message}\nError Number: {sqlEx.Number}", "Database Error",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    transaction.Rollback();
-                                    MessageBox.Show($"Error during deletion: {ex.Message}", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error in delete process: {ex.Message}", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else
+            if (DGVResidents.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a homeowner to delete.", "No Selection",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-        }
 
-       
-        private void AddUnitbtn_Click(object sender, EventArgs e)
-        {
+            if (MessageBox.Show(
+                    "WARNING: This will permanently delete this homeowner and their unit links.\n\n" +
+                    "Are you sure you want to proceed?",
+                    "CONFIRM PERMANENT DELETE",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
+
             try
             {
-                AddUnits addUnitsForm = new AddUnits(); 
+                int homeownerId = Convert.ToInt32(DGVResidents.SelectedRows[0].Cells["HomeownerID"].Value);
+                string homeownerName = $"{DGVResidents.SelectedRows[0].Cells["FirstName"].Value} {DGVResidents.SelectedRows[0].Cells["LastName"].Value}";
 
-                if (addUnitsForm.ShowDialog() == DialogResult.OK)
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    LoadHomeowners(); 
-                    MessageBox.Show("Unit added successfully! Grid refreshed.", "Success",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    conn.Open();
+
+                    using (SqlTransaction transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            // 1. Get units and types linked to this homeowner
+                            List<int> unitIds = new List<int>();
+                            Dictionary<int, string> unitTypes = new Dictionary<int, string>();
+
+                            string getUnitsQuery = @"
+                        SELECT hu.UnitID, u.UnitType
+                        FROM HomeownerUnits hu
+                        INNER JOIN TBL_Units u ON hu.UnitID = u.UnitID
+                        WHERE hu.HomeownerID = @id";
+
+                            using (SqlCommand getUnitsCmd = new SqlCommand(getUnitsQuery, conn, transaction))
+                            {
+                                getUnitsCmd.Parameters.AddWithValue("@id", homeownerId);
+                                using (SqlDataReader reader = getUnitsCmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int unitId = reader.GetInt32(0);
+                                        string unitType = reader.GetString(1);
+                                        unitIds.Add(unitId);
+                                        unitTypes[unitId] = unitType;
+                                    }
+                                }
+                            }                    
+                            using (SqlCommand deleteHomeownerUnitsCmd =
+                                   new SqlCommand("DELETE FROM HomeownerUnits WHERE HomeownerID = @id", conn, transaction))
+                            {
+                                deleteHomeownerUnitsCmd.Parameters.AddWithValue("@id", homeownerId);
+                                deleteHomeownerUnitsCmd.ExecuteNonQuery();
+                            }                        
+                            foreach (int unitId in unitIds)
+                            {
+                                if (unitTypes[unitId] != "Apartment")
+                                {
+                                    using (SqlCommand updateUnitsCmd =
+                                           new SqlCommand("UPDATE TBL_Units SET IsOccupied = 0 WHERE UnitID = @unitId", conn, transaction))
+                                    {
+                                        updateUnitsCmd.Parameters.AddWithValue("@unitId", unitId);
+                                        updateUnitsCmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                          
+                            using (SqlCommand deleteResidentCmd =
+                                   new SqlCommand("DELETE FROM Residents WHERE HomeownerID = @id", conn, transaction))
+                            {
+                                deleteResidentCmd.Parameters.AddWithValue("@id", homeownerId);
+                                deleteResidentCmd.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+
+                            MessageBox.Show(
+                                $"PERMANENTLY DELETED:\n" +
+                                $"- Homeowner: {homeownerName} (ID: {homeownerId})\n" +
+                                $"- {unitIds.Count} unit link(s) removed\n",
+                                "Deletion Complete",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                            LoadHomeowners();
+                        }
+                        catch (Exception ex2)
+                        {
+                            transaction.Rollback();
+                            MessageBox.Show($"Error during deletion: {ex2.Message}", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error opening add units form: {ex.Message}", "Error",
+                MessageBox.Show($"Error in delete process: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AddUnitbtn_Click(object sender, EventArgs e)
+        {
+            if (DGVResidents.SelectedRows.Count > 0)
+            {
+                try
+                {
+                    int homeownerId = Convert.ToInt32(DGVResidents.SelectedRows[0].Cells["HomeownerID"].Value);
+                    string residencyType = DGVResidents.SelectedRows[0].Cells["ResidencyType"].Value.ToString();
+
+                    AddUnits addUnitsForm = new AddUnits(homeownerId, residencyType);
+
+                    if (addUnitsForm.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadHomeowners();
+                        MessageBox.Show("Unit added successfully! Grid refreshed.", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error opening add units form: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a homeowner first.", "No Selection",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -460,7 +434,7 @@ namespace RECOMANAGESYS
         }
         private void DGVResidents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) 
+            if (e.RowIndex >= 0)
             {
                 int homeownerId = Convert.ToInt32(DGVResidents.Rows[e.RowIndex].Cells["HomeownerID"].Value);
                 ShowResidentUnits(homeownerId);
@@ -480,7 +454,7 @@ namespace RECOMANAGESYS
                             tu.UnitNumber,
                             tu.Block,
                             tu.UnitType,
-                            us.Username AS ApprovedBy                            
+                            us.Username AS ApprovedBy
                         FROM HomeownerUnits hu
                         INNER JOIN TBL_Units tu ON hu.UnitID = tu.UnitID
                         LEFT JOIN Users us ON hu.ApprovedByUserID = us.UserID

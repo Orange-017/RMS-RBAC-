@@ -72,7 +72,7 @@
             this.searchbtn.IconColor = System.Drawing.Color.Black;
             this.searchbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.searchbtn.IconSize = 28;
-            this.searchbtn.Location = new System.Drawing.Point(989, 25);
+            this.searchbtn.Location = new System.Drawing.Point(980, 27);
             this.searchbtn.Name = "searchbtn";
             this.searchbtn.Size = new System.Drawing.Size(50, 38);
             this.searchbtn.TabIndex = 11;
@@ -81,7 +81,7 @@
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(686, 25);
+            this.textBox1.Location = new System.Drawing.Point(677, 27);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(353, 38);
@@ -95,9 +95,9 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(24, 72);
+            this.button2.Location = new System.Drawing.Point(32, 74);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(154, 41);
+            this.button2.Size = new System.Drawing.Size(150, 38);
             this.button2.TabIndex = 9;
             this.button2.Text = "Add Folder";
             this.button2.UseVisualStyleBackColor = false;
@@ -121,9 +121,9 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(24, 25);
+            this.button3.Location = new System.Drawing.Point(32, 27);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(154, 41);
+            this.button3.Size = new System.Drawing.Size(150, 38);
             this.button3.TabIndex = 7;
             this.button3.Text = "Add File";
             this.button3.UseVisualStyleBackColor = false;
@@ -135,9 +135,9 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(885, 78);
+            this.button1.Location = new System.Drawing.Point(876, 80);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(154, 41);
+            this.button1.Size = new System.Drawing.Size(150, 38);
             this.button1.TabIndex = 5;
             this.button1.Text = "Generate File";
             this.button1.UseVisualStyleBackColor = false;

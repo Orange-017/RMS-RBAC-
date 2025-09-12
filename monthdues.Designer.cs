@@ -45,7 +45,7 @@
             // 
             this.HomeOwnersShow.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.HomeOwnersShow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HomeOwnersShow.Location = new System.Drawing.Point(21, 70);
+            this.HomeOwnersShow.Location = new System.Drawing.Point(21, 76);
             this.HomeOwnersShow.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.HomeOwnersShow.Name = "HomeOwnersShow";
             this.HomeOwnersShow.RowHeadersWidth = 51;
@@ -62,11 +62,12 @@
             this.panel1.Controls.Add(this.searchbtn);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.HomeOwnersShow);
-            this.panel1.Location = new System.Drawing.Point(27, 137);
+            this.panel1.Location = new System.Drawing.Point(27, 131);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1061, 576);
+            this.panel1.Size = new System.Drawing.Size(1061, 582);
             this.panel1.TabIndex = 1;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // updateHomeOwners
             // 
@@ -75,10 +76,10 @@
             this.updateHomeOwners.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateHomeOwners.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateHomeOwners.ForeColor = System.Drawing.Color.White;
-            this.updateHomeOwners.Location = new System.Drawing.Point(21, 16);
+            this.updateHomeOwners.Location = new System.Drawing.Point(21, 19);
             this.updateHomeOwners.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.updateHomeOwners.Name = "updateHomeOwners";
-            this.updateHomeOwners.Size = new System.Drawing.Size(155, 41);
+            this.updateHomeOwners.Size = new System.Drawing.Size(150, 38);
             this.updateHomeOwners.TabIndex = 5;
             this.updateHomeOwners.Text = "Update ";
             this.updateHomeOwners.UseVisualStyleBackColor = false;
@@ -91,10 +92,10 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(181, 16);
+            this.button1.Location = new System.Drawing.Point(181, 19);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 41);
+            this.button1.Size = new System.Drawing.Size(150, 38);
             this.button1.TabIndex = 4;
             this.button1.Text = "Generate Report";
             this.button1.UseVisualStyleBackColor = false;
@@ -106,7 +107,7 @@
             this.searchbtn.IconColor = System.Drawing.Color.Black;
             this.searchbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.searchbtn.IconSize = 28;
-            this.searchbtn.Location = new System.Drawing.Point(985, 18);
+            this.searchbtn.Location = new System.Drawing.Point(985, 21);
             this.searchbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.searchbtn.Name = "searchbtn";
             this.searchbtn.Size = new System.Drawing.Size(51, 38);
@@ -116,7 +117,7 @@
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(683, 18);
+            this.textBox1.Location = new System.Drawing.Point(683, 21);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
